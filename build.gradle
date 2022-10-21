@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'com.doodle'
+version '1.0-beta'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    implementation 'net.dv8tion:JDA:5.0.0-alpha.21'
+
+    implementation 'org.javacord:javacord:3.6.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.19.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task stage(dependsOn: ['build','shadowJar', 'clean', 'test'])
+build.mustRunAfter clean
+build.mustRunAfter test
+
+jar {
+    manifest{
+        attributes 'Class-Path': '/libs/WordleDiscordBotGradle-1.0-beta.jar', 'Main-Class': 'com.doodle.Bot'
+    }
+}

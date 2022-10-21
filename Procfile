@@ -1,0 +1,1 @@
+worker: java -jar build/libs/WordleDiscordBotGradle-1.0-beta-all.jar
